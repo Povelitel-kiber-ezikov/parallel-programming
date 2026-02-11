@@ -6,7 +6,7 @@
 #include <chrono>
 
 //чтение матрицы из тхт файла
-void read_mat(const std::string& filepath, std::vector<std::vector<float>>& mat){
+void read_mat(const std::string& filepath, std::vector<std::vector<double>>& mat){
     
     std::ifstream file(filepath);
     
@@ -14,8 +14,8 @@ void read_mat(const std::string& filepath, std::vector<std::vector<float>>& mat)
 
     while(std::getline(file, line)){
         std::stringstream ss(line);
-        std::vector<float> row;
-        float value;
+        std::vector<double> row;
+        double value;
 
         while(ss >> value){
             row.push_back(value);
@@ -30,12 +30,12 @@ void read_mat(const std::string& filepath, std::vector<std::vector<float>>& mat)
 }
 
 //перемножение матриц
-std::vector<std::vector<float>> mult_mat(const std::vector<std::vector<float>>& mat1, const std::vector<std::vector<float>>& mat2){
+std::vector<std::vector<double>> mult_mat(const std::vector<std::vector<double>>& mat1, const std::vector<std::vector<double>>& mat2){
     if(mat1.empty() || mat2.empty() || mat1[0].size() != mat2.size()){
         throw std::invalid_argument("неверные размеры");
     }
 
-    std::vector<std::vector<float>> C(mat1.size(), std::vector<float>(mat2[0].size(), 0.0f));
+    std::vector<std::vector<double>> C(mat1.size(), std::vector<double>(mat2[0].size(), 0.0f));
     
     for(size_t i = 0; i < mat1.size(); ++i){
         for(size_t j = 0; j < mat2[0].size(); ++j){
@@ -50,7 +50,7 @@ std::vector<std::vector<float>> mult_mat(const std::vector<std::vector<float>>& 
 }
 
 //сохранение матрицы в файл txt
-void save_mat(const std::string& filepath, const std::vector<std::vector<float>>& mat) {
+void save_mat(const std::string& filepath, const std::vector<std::vector<double>>& mat) {
     std::ofstream file(filepath);
     
     if (!file.is_open()) {
@@ -80,13 +80,13 @@ int main(int argc, char* argv[]) {
     std::string path2 = argv[2];
     std::string pathRes = argv[3];
 
-    std::vector<std::vector<float>> mat1, mat2;
+    std::vector<std::vector<double>> mat1, mat2;
 
 
     read_mat(path1, mat1);
     read_mat(path2, mat2);
 
-    std::vector<std::vector<float>> result = mult_mat(mat1, mat2);
+    std::vector<std::vector<double>> result = mult_mat(mat1, mat2);
 
     if (!result.empty()) {
         save_mat(pathRes, result);
@@ -95,5 +95,6 @@ int main(int argc, char* argv[]) {
     auto end = std::chrono::high_resolution_clock::now(); //конец работы программы
     std::chrono::duration<double, std::milli> duration = end - start;
     std::cout << "Время выполнения: " << duration.count() << " мс" << std::endl;
+    std::cout << "Объем задачи: " << mat1.size() << "x" << mat1.size() << std::endl;
     return 0;
 }

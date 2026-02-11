@@ -6,12 +6,12 @@
 #include <random>
 
 //создание случайной матрицы заданного размера
-std::vector<std::vector<float>> create_mat(const size_t& size){
-    std::vector<std::vector<float>> mat(size, std::vector<float>(size));
+std::vector<std::vector<double>> create_mat(const size_t& size){
+    std::vector<std::vector<double>> mat(size, std::vector<double>(size));
     
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> dis(0.0f, 100.0f);
+    std::uniform_real_distribution<double> dis(0.0f, 100.0f);
     
      for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
@@ -22,7 +22,7 @@ std::vector<std::vector<float>> create_mat(const size_t& size){
 }
 
 //сохранение матрицы в txt файл
-void save_mat(const std::string& filepath, const std::vector<std::vector<float>>& mat) {
+void save_mat(const std::string& filepath, const std::vector<std::vector<double>>& mat) {
     std::ofstream file(filepath);
     
     if (!file.is_open()) {
@@ -52,8 +52,8 @@ int main(int argc, char* argv[]) {
     int size2 = std::stoi(argv[3]);
     std::string path2 = argv[4];
 
-    std::vector<std::vector<float>> mat1 = create_mat(size1);
-    std::vector<std::vector<float>> mat2 = create_mat(size2);
+    std::vector<std::vector<double>> mat1 = create_mat(size1);
+    std::vector<std::vector<double>> mat2 = create_mat(size2);
 
     save_mat(path1, mat1);
     save_mat(path2, mat2);
