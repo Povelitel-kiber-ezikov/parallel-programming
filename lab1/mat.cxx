@@ -36,7 +36,7 @@ std::vector<std::vector<float>> mult_mat(const std::vector<std::vector<float>>& 
         return;
     }
 
-    std::vector<std::vector<float>> C;
+    std::vector<std::vector<float>> C(A.size(), std::vector<float>(B[0].size()));
     
     for(size_t i = 0; i < A.size(); ++i){
         for(size_t j = 0; j < B[0].size(); ++j){
@@ -48,10 +48,29 @@ std::vector<std::vector<float>> mult_mat(const std::vector<std::vector<float>>& 
     
     return C;
     
-
 }
 
+//сохранение матрицы в файл txt
+void save_mat(const std::string& filepath, const std::vector<std::vector<float>>& mat) {
+    std::ofstream file(filepath);
+    
+    if (!file.is_open()) {
+        std::cerr << "Ошибка открытия файла для записи!" << std::endl;
+        return;
+    }
 
+    for (const auto& row : mat) {
+        for (size_t i = 0; i < row.size(); ++i) {
+            file << row[i];
+            if (i < row.size() - 1) {
+                file << " ";
+            }
+        }
+        file << "\n";
+    }
+
+    file.close();
+}
 
 int main(){
     std::vector<std::vector<float>> A;
