@@ -32,7 +32,7 @@ def main():
         result = A @ B
         
         if np.allclose(result, C):
-            print("Отлично! Результат верен")
+            print("Результат верен")
         else:
             print("Где-то ошибка")
          
