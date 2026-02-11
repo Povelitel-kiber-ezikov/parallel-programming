@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-
+#include <chrono>
 
 //чтение матрицы из тхт файла
 void read_mat(const std::string& filepath, std::vector<std::vector<float>>& mat){
@@ -74,6 +74,9 @@ void save_mat(const std::string& filepath, const std::vector<std::vector<float>>
 
 int main(int argc, char* argv[]) {
     
+    auto start = std::chrono::high_resolution_clock::now(); //начало работы программы
+
+
     std::string path1 = argv[1];
     std::string path2 = argv[2];
     std::string pathRes = argv[3];
@@ -90,5 +93,8 @@ int main(int argc, char* argv[]) {
         save_mat(pathRes, result);
     }
     
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
+    std::cout << "Время выполнения: " << duration.count() << " мс" << std::endl;
     return 0;
 }
