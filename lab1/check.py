@@ -24,7 +24,7 @@ def main():
     
     A = read_matrix(args.file_a)
     B = read_matrix(args.file_b)
-    C = read_matrix(args.file_exp)
+    C = read_matrix(args.file_c)
 
 
     try:

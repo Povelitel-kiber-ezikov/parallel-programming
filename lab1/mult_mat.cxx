@@ -32,11 +32,10 @@ void read_mat(const std::string& filepath, std::vector<std::vector<float>>& mat)
 //перемножение матриц
 std::vector<std::vector<float>> mult_mat(const std::vector<std::vector<float>>& mat1, const std::vector<std::vector<float>>& mat2){
     if(mat1.empty() || mat2.empty() || mat1[0].size() != mat2.size()){
-        std::cerr << "Неверные размеры" << std::endl;
-        return;
+        throw std::invalid_argument("неверные размеры");
     }
 
-    std::vector<std::vector<float>> C(mat1.size(), std::vector<float>(mat2[0].size()));
+    std::vector<std::vector<float>> C(mat1.size(), std::vector<float>(mat2[0].size(), 0.0f));
     
     for(size_t i = 0; i < mat1.size(); ++i){
         for(size_t j = 0; j < mat2[0].size(); ++j){
@@ -93,7 +92,7 @@ int main(int argc, char* argv[]) {
         save_mat(pathRes, result);
     }
     
-    auto end = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now(); //конец работы программы
     std::chrono::duration<double, std::milli> duration = end - start;
     std::cout << "Время выполнения: " << duration.count() << " мс" << std::endl;
     return 0;
