@@ -5,6 +5,8 @@
 #include <sstream>
 #include <chrono>
 
+
+
 //чтение матрицы из tхt файла
 void read_mat(const std::string& filepath, std::vector<std::vector<double>>& mat){
     
@@ -95,7 +97,7 @@ int main(int argc, char* argv[]) {
     auto end = std::chrono::high_resolution_clock::now(); //конец работы программы
     std::chrono::duration<double, std::milli> duration = end - start;
 
-    std::cout << "Время выполнения: " << duration.count() << " мс" << std::endl;
-    std::cout << "Объем задачи: " << mat1.size() << "x" << mat1.size() << std::endl;
+    std::cout << "Execution time: " << duration.count() << " ms" << std::endl;
+    std::cout << "Problem size: " << mat1.size() << "x" << (mat1.empty() ? 0 : mat1[0].size()) << std::endl;
     return 0;
 }
