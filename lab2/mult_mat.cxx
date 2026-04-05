@@ -6,7 +6,6 @@
 #include <chrono>
 #include <omp.h>
 
-
 //чтение матрицы из tхt файла
 void read_mat(const std::string& filepath, std::vector<std::vector<double>>& mat){
     
@@ -36,10 +35,8 @@ std::vector<std::vector<double>> mult_mat(const std::vector<std::vector<double>>
     size_t rows = mat1.size();
     size_t cols = mat2[0].size();
     size_t inner = mat2.size();
-
-    // Инициализируем матрицу нулями
-    std::vector<std::vector<double>> C(rows, std::vector<double>(cols, 0.0));
     
+    std::vector<std::vector<double>> C(rows, std::vector<double>(cols, 0.0));
     
     #pragma omp parallel for schedule(static)
     for(size_t i = 0; i < rows; ++i){
@@ -78,9 +75,6 @@ void save_mat(const std::string& filepath, const std::vector<std::vector<double>
 
 int main(int argc, char* argv[]) {
     
-    
-
-
     std::string path1 = argv[1];
     std::string path2 = argv[2];
     std::string pathRes = argv[3];
